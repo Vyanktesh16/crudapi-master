@@ -1,0 +1,178 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Movie Crud API",
+    "description": "A CRUD API using typescript with node.js",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8000",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "Movies",
+      "description": "API for movie in the system "
+    }
+  ],
+
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/movies": {
+      "get": {
+        "tags": ["movies"],
+        "summary": "Get all Movies in the system",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definations/movies"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["movies"],
+        "summary": "Create new Movie in system",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Movie that we want to create ",
+            "schema": {
+              "$ref": "#/definitions/movie"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          },
+          "400": {
+            "description": "Failed bad post data"
+          }
+        }
+      }
+    },
+    "/movie/{id}": {
+      "put": {
+        "summary": "Update Movie with given Id",
+        "tags": ["movies"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Enter the movie ID.",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Movie that we want to create ",
+            "schema": {
+              "$ref": "#/definitions/movie"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          },
+          "400": {
+            "description": "Failed bad post data"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Movie with given Id",
+        "tags": ["movies"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Enter the movie ID.",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/id"
+            },
+            "400": {
+              "description": "Movie Not found"
+            },
+            "404": {
+              "description": "Error while deleting the movie"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": {
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "movie": {
+      "type": "object",
+      "properties": {
+        "mov_title": {
+          "type": "string"
+        },
+        "mov_year": {
+          "type": "integer"
+        },
+        "mov_time": {
+          "type": "string"
+        },
+        "mov_genres": {
+          "type": "string"
+        },
+        "mov_lang": {
+          "type": "string"
+        },
+        "mov_rel_country": {
+          "type": "string"
+        },
+        "dir_name": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer"
+        }
+      }
+    },
+    "movies": {
+      "type": "object",
+      "properties": {
+        "movies": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definations/movie"
+          }
+        }
+      }
+    }
+  }
+}
